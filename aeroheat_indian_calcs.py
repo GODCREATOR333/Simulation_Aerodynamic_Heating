@@ -1,4 +1,5 @@
-alt = int(input("enter altitude:"))
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 def indian(alt):
@@ -57,7 +58,49 @@ def indian(alt):
     return te, p, den
 
 
-te, p, den = indian(alt)
+te, p, den = indian(50000)
 print("te=", te)
 print("p=", p)
 print("den=", den)
+
+
+# # Initialize empty lists to store data points
+# altitude_values = []
+# temperature_values = []
+# pressure_values = []
+# density_values = []
+
+# # Compute and collect data points for altitudes in steps of 100 up to the specified altitude
+# for alt_point in range(0, alt + 1, 100):
+#     te, p, den = indian(alt_point)
+#     altitude_values.append(alt_point)
+#     temperature_values.append(te)
+#     pressure_values.append(p)
+#     density_values.append(den)
+
+# # Create a plot for temperature vs. altitude
+# plt.figure(figsize=(8, 6))
+# plt.plot(altitude_values, temperature_values)
+# plt.xlabel('Altitude (m)')
+# plt.ylabel('Temperature (K)')
+# plt.title('Altitude vs. Temperature')
+# plt.grid(True)
+# plt.show()
+
+# # Create a plot for pressure vs. altitude
+# plt.figure(figsize=(8, 6))
+# plt.plot(altitude_values, pressure_values)
+# plt.xlabel('Altitude (m)')
+# plt.ylabel('Pressure (atm)')
+# plt.title('Altitude vs. Pressure')
+# plt.grid(True)
+# plt.show()
+
+# # Create a plot for density vs. altitude
+# plt.figure(figsize=(8, 6))
+# plt.plot(altitude_values, density_values)
+# plt.xlabel('Altitude (m)')
+# plt.ylabel('Density')
+# plt.title('Altitude vs. Density')
+# plt.grid(True)
+# plt.show()

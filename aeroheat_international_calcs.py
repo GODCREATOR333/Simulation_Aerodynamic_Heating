@@ -1,4 +1,9 @@
-alt = int(input("enter altitude:"))
+import numpy as np
+import scipy
+import matplotlib.pyplot as plt
+
+y = int(input("enter altitude:"))
+alt = y
 
 
 def stdatm(alt):
@@ -9,7 +14,7 @@ def stdatm(alt):
     rnot = 1.23
     alt = alt
 
-    if alt < 11000:
+    if alt <= 11000:
         c = -0.0065
         te = to + (c * (alt - 0))
         sl = -(g / (c * r))
@@ -68,3 +73,45 @@ te, p, den = stdatm(alt)
 print("te=", te)
 print("p=", p)
 print("den=", den)
+
+
+# Initialize empty lists to store data points
+altitude_values = []
+temperature_values = []
+pressure_values = []
+density_values = []
+
+# Compute and collect data points for altitudes in steps of 100 up to the specified altitude
+for alt_point in range(0, alt + 1, 100):
+    te, p, den = stdatm(alt_point)
+    altitude_values.append(alt_point)
+    temperature_values.append(te)
+    pressure_values.append(p)
+    density_values.append(den)
+
+# Create a plot for temperature vs. altitude
+plt.figure(figsize=(8, 6))
+plt.plot(altitude_values, temperature_values)
+plt.xlabel('Altitude (m)')
+plt.ylabel('Temperature (K)')
+plt.title('Altitude vs. Temperature')
+plt.grid(True)
+plt.show()
+
+# Create a plot for pressure vs. altitude
+plt.figure(figsize=(8, 6))
+plt.plot(altitude_values, pressure_values)
+plt.xlabel('Altitude (m)')
+plt.ylabel('Pressure (atm)')
+plt.title('Altitude vs. Pressure')
+plt.grid(True)
+plt.show()
+
+# Create a plot for density vs. altitude
+plt.figure(figsize=(8, 6))
+plt.plot(altitude_values, density_values)
+plt.xlabel('Altitude (m)')
+plt.ylabel('Density')
+plt.title('Altitude vs. Density')
+plt.grid(True)
+plt.show()

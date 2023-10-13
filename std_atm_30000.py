@@ -44,7 +44,7 @@ BODY = {
     'Nose Cone Surface Area (m²)': 7.06858
 }
 
-altitude = 0  # Replace this with the altitude you're interested in
+altitude = 24000  # Replace this with the altitude you're interested in
 index = atmtable['Elevation (m)'].index(altitude)
 
 elevation = atmtable['Elevation (m)'][index]

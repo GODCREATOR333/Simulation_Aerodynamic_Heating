@@ -84,7 +84,6 @@ def std_international(alt):
 
 
 std_international(alt)
-plt.show()
 
 altitude_temperature_points, altitude_pressure_points, altitude_density_points = std_international(
     alt)

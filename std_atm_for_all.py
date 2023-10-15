@@ -6,7 +6,8 @@ from Trajectory1 import height_in_meters, mach, time1, time2, velocity
 
 print(Fore.RED + Style.BRIGHT +
       "Remember the maximum altitude for this simulation is 85000 meters to be accurate and within acceptable error.")
-alt = height_in_meters[-1]
+
+alt = height_in_meters
 
 
 class AtmosphericModel:
@@ -17,7 +18,7 @@ class AtmosphericModel:
         self.T0 = 288.15  # K (temperature at sea level)
         self.p0 = 1.01325  # atm (pressure at sea level)
         self.rho0 = 1.225  # kg/m^3 (density at sea level)
-        self.altitudes = np.arange(0, alt+1000, 1000)
+        self.altitudes = alt
         # creates altitude array from 0 to alt+1000(meters) in a step size of 1000meters
 
     def temperature_at_altitude(self, alt):
@@ -85,7 +86,9 @@ class AtmosphericModel:
 
         # Show the plot
         plt.tight_layout()
-        plt.show()
+        #########################################
+        #########################################
+        # plt.show()
 
     def plot_points(self):
         # Generate coordinate points for temperature, pressure, and density
@@ -108,43 +111,45 @@ class AtmosphericModel:
             zip(altitude_points, speed_of_sound_points))
 
         #################################################################################################
+        #################################################################################################
         # Print the coordinate points in list form
-        print("Altitude vs Temperature:")
-        for alt, temp in zip(altitude_points, temperature_points):
-            print(f"Altitude: {alt} m, Temperature: {temp} K")
+        # print("Altitude vs Temperature:")
+        # for alt, temp in zip(altitude_points, temperature_points):
+        #     print(f"Altitude: {alt} m, Temperature: {temp} K")
 
-        print("Altitude vs Pressure:")
-        for alt, press in zip(altitude_points, pressure_points):
-            print(f"Altitude: {alt} m, Pressure: {press} atm")
+        # print("Altitude vs Pressure:")
+        # for alt, press in zip(altitude_points, pressure_points):
+        #     print(f"Altitude: {alt} m, Pressure: {press} atm")
 
-        print("Altitude vs Density:")
-        for alt, den in zip(altitude_points, density_points):
-            print(f"Altitude: {alt} m, Density: {den} kg/m^3")
+        # print("Altitude vs Density:")
+        # for alt, den in zip(altitude_points, density_points):
+        #     print(f"Altitude: {alt} m, Density: {den} kg/m^3")
 
-        print("Altitude vs Speed of Sound:")
-        for alt, sound_speed in zip(altitude_points, speed_of_sound_points):
-            print(
-                f"Altitude: {alt} m, Speed of sound: {sound_speed} m/sec")
+        # print("Altitude vs Speed of Sound:")
+        # for alt, sound_speed in zip(altitude_points, speed_of_sound_points):
+        #     print(
+        #         f"Altitude: {alt} m, Speed of sound: {sound_speed} m/sec")
 
         #####################################################################################################
+        #####################################################################################################
         # Print the coordinate points in (x,Y) form
-        print("Altitude vs Temperature:")
-        print("\t".join([f"({alt}, {temp})" for alt,
-              temp in altitude_temperature_points]))
+        # print("Altitude vs Temperature:")
+        # print("\t".join([f"({alt}, {temp})" for alt,
+        #       temp in altitude_temperature_points]))
 
-        print("Altitude vs Pressure:")
-        print("\t".join([f"({alt}, {press})" for alt,
-              press in altitude_pressure_points]))
+        # print("Altitude vs Pressure:")
+        # print("\t".join([f"({alt}, {press})" for alt,
+        #       press in altitude_pressure_points]))
 
-        print("Altitude vs Density:")
-        print("\t".join([f"({alt}, {den})" for alt,
-              den in altitude_density_points]))
+        # print("Altitude vs Density:")
+        # print("\t".join([f"({alt}, {den})" for alt,
+        #       den in altitude_density_points]))
 
-        print("Altitude vs Speed of sound:")
-        print("\t".join([f"({alt}, {sound_speed})" for alt,
-              sound_speed in altitude_sound_speed_points]))
+        # print("Altitude vs Speed of sound:")
+        # print("\t".join([f"({alt}, {sound_speed})" for alt,
+        #       sound_speed in altitude_sound_speed_points]))
 
-        return altitude_temperature_points, altitude_pressure_points, altitude_density_points
+        # return altitude_temperature_points, altitude_pressure_points, altitude_density_points
 
 
 # Create an instance of the AtmosphericModel class

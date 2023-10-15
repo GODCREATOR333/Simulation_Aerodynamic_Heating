@@ -81,11 +81,14 @@ length_velocity = len(velocity)
 length_mach = len(mach)
 length_height_in_meters = len(height_in_meters)
 
-print(f'length of time for altitude = {length_time_for_altitude}')
-print(f'length of time for mach = {length_time_for_mach}')
-print(f'length of velocity = {length_velocity}')
-print(f'length of mach = {length_mach}')
-print(f'length of height = {length_height_in_meters}')
+
+############################################################################################################
+############################################################################################################
+# print(f'length of time for altitude = {length_time_for_altitude}')
+# print(f'length of time for mach = {length_time_for_mach}')
+# print(f'length of velocity = {length_velocity}')
+# print(f'length of mach = {length_mach}')
+# print(f'length of height = {length_height_in_meters}')
 
 
 # interpolate the data to remove variance/noise and make it more accurate
@@ -125,11 +128,11 @@ plt.plot(t_interp2, mach_interp_smooth)
 plt.title('Time vs Mach Number --- interpolated')
 plt.xlabel('Time (sec)')
 plt.ylabel('Mach Number')
-
-
-print(f'Time1:{time1}')
-print(f'altitude : {height_in_meters}')
-print(f'mach number : {mach}')
-print(f'velocity : {velocity}')
 plt.tight_layout()
-plt.show()
+###################################################################################################
+###################################################################################################
+# print(f'Time1:{time1}')
+# print(f'altitude : {height_in_meters}')
+# print(f'mach number : {mach}')
+# print(f'velocity : {velocity}')
+# plt.show()

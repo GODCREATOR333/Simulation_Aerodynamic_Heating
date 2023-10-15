@@ -2,9 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interp
 from scipy.signal import savgol_filter
-from std_atm_for_all import AtmosphericModel, alt
-model = AtmosphericModel(alt)
-altitudes = model.altitudes
 
 # Height vs time1 data
 time1 = [0.05277749659772102, 0.7406845047294484, 1.2735910067370737, 1.9936228363194655,
@@ -73,8 +70,9 @@ mach = [0.0072109355405096665, 0.20833333333333215, 0.5022573363431135, 0.717801
         13.532888136443438, 14.101141208929016, 15.022103085026332]
 
 
-# Calculate velocity
+# Calculate velocity3
 velocity = [mach*343 for mach in mach]
+speed_of_sound_from_trajectory = []
 
 
 length_time_for_altitude = len(time1)
@@ -105,7 +103,7 @@ plt.subplot(2, 2, 1)
 plt.plot(time1, height_in_meters)
 plt.title('Time vs Altitude')
 plt.xlabel('Time (sec)')
-plt.ylabel('Altitude (km)')
+plt.ylabel('Altitude (m)')
 
 # Time vs Mach Number
 plt.subplot(2, 2, 2)
@@ -119,7 +117,7 @@ plt.subplot(2, 2, 3)
 plt.plot(t_interp1, h_interp_smooth)
 plt.title('Time vs Altitude --- interpolated')
 plt.xlabel('Time (sec)')
-plt.ylabel('Altitude (km)')
+plt.ylabel('Altitude (m)')
 
 # Time vs Mach Number----interpolated
 plt.subplot(2, 2, 4)

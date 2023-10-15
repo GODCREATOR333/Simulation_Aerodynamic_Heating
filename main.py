@@ -1,5 +1,5 @@
+from Trajectory1 import height_in_meters, mach, time1, time2, velocity
 from std_atm_for_all import AtmosphericModel, alt
-
 model = AtmosphericModel(alt)
 altitudes = model.altitudes
 
@@ -10,7 +10,7 @@ class Step1:
     def get_temp_values():
         temp_values = []
         for alt in altitudes:
-            temp = model.temperature_at_altitude(alt)
+            temp = model.temperature_at_altitude(height_in_meters[-1])
             temp_values.append(temp)
         return temp_values
 

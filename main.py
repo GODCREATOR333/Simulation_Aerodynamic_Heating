@@ -1,4 +1,4 @@
-from some_experiment import AtmosphericModel, alt
+from std_atm_for_all import AtmosphericModel, alt
 
 model = AtmosphericModel(alt)
 altitudes = model.altitudes

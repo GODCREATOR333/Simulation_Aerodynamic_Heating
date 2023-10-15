@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interp
 from scipy.signal import savgol_filter
-from some_experiment import AtmosphericModel, alt
+from std_atm_for_all import AtmosphericModel, alt
 model = AtmosphericModel(alt)
 altitudes = model.altitudes
 

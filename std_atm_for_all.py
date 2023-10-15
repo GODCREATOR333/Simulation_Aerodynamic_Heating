@@ -9,7 +9,6 @@ alt = int(input("enter altitude(m):"))
 
 def std_international(alt):
 
-    alt = int(input("enter altitude(m):"))
     # Constants
     R = 8.3144598  # J/mol/K
     M = 0.0289644  # kg/mol (dry air)
@@ -84,6 +83,7 @@ def std_international(alt):
 
 
 std_international(alt)
+plt.show()
 
 altitude_temperature_points, altitude_pressure_points, altitude_density_points = std_international(
     alt)

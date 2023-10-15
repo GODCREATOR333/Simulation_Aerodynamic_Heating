@@ -2,7 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.interpolate as interp
 from scipy.signal import savgol_filter
-
+from some_experiment import AtmosphericModel, alt
+model = AtmosphericModel(alt)
+altitudes = model.altitudes
 
 # Height vs time1 data
 time1 = [0.05277749659772102, 0.7406845047294484, 1.2735910067370737, 1.9936228363194655,
@@ -21,6 +23,7 @@ time1 = [0.05277749659772102, 0.7406845047294484, 1.2735910067370737, 1.99362283
          27.951743878710165, 28.331336954932457, 28.618492087593207, 28.996960443589646,
          29.34583459864358, 29.569583628572392, 29.91733306340048]
 
+# height is in  ft
 height = [0.43695380774033765, 0.24188514357055624, 1.0221598002497103, 1.4122971285892731,
           1.607365792759083, 1.8024344569288644, 2.387640449438237, 2.5827091136080185,
           3.1679151061173627, 3.5580524344569255, 4.5333957553058895, 4.923533083645481,
@@ -37,16 +40,7 @@ height = [0.43695380774033765, 0.24188514357055624, 1.0221598002497103, 1.412297
           84.51154806491886, 87.43757802746569, 91.33895131086143, 93.4847066167291,
           96.8008739076155, 100.11704119850188, 102.65293383270912,]
 
-# Calculate velocity
-velocity = [0]
-for i in range(len(time1)-1):
-    h1 = height[i] * 0.0003048  # Convert ft to km
-    h2 = height[i+1] * 0.0003048  # Convert ft to km
-    t1 = time1[i]
-    t2 = time1[i+1]
-    v = (h2 - h1) / (t2 - t1)
-    velocity.append(v)
-
+height_in_meters = [height * 1000 * 0.3048 for height in height]
 
 # Height vs time1 data
 time2 = [0.03279030910609837, 0.4632414369256468, 1.272556390977444, 1.8991228070175445, 2.6040100250626566,
@@ -78,24 +72,29 @@ mach = [0.0072109355405096665, 0.20833333333333215, 0.5022573363431135, 0.717801
         11.80853398545272, 12.141647855530472, 12.592331326812136, 13.043014798093802,
         13.532888136443438, 14.101141208929016, 15.022103085026332]
 
+
+# Calculate velocity
+velocity = [mach*343 for mach in mach]
+
+
 length_time_for_altitude = len(time1)
 length_time_for_mach = len(time2)
 length_velocity = len(velocity)
 length_mach = len(mach)
-length_height = len(height)
+length_height_in_meters = len(height_in_meters)
 
 print(f'length of time for altitude = {length_time_for_altitude}')
 print(f'length of time for mach = {length_time_for_mach}')
 print(f'length of velocity = {length_velocity}')
 print(f'length of mach = {length_mach}')
-print(f'length of height = {length_height}')
+print(f'length of height = {length_height_in_meters}')
 
 
 # interpolate the data to remove variance/noise and make it more accurate
 # Currently applying smoothing filter like Savitzky-Golay filter to the interpolated data:
 t_interp1 = np.linspace(min(time1), max(time1), num=500)
 t_interp2 = np.linspace(min(time2), max(time2), num=500)
-h_interp = interp.interp1d(time1, height, kind='cubic')(t_interp1)
+h_interp = interp.interp1d(time1, height_in_meters, kind='cubic')(t_interp1)
 mach_interp = interp.interp1d(time2, mach, kind='cubic')(t_interp2)
 h_interp_smooth = savgol_filter(h_interp, window_length=50, polyorder=5)
 mach_interp_smooth = savgol_filter(mach_interp, window_length=50, polyorder=5)
@@ -103,7 +102,7 @@ mach_interp_smooth = savgol_filter(mach_interp, window_length=50, polyorder=5)
 
 # Time vs Altitude
 plt.subplot(2, 2, 1)
-plt.plot(time1, height)
+plt.plot(time1, height_in_meters)
 plt.title('Time vs Altitude')
 plt.xlabel('Time (sec)')
 plt.ylabel('Altitude (km)')
@@ -129,5 +128,10 @@ plt.title('Time vs Mach Number --- interpolated')
 plt.xlabel('Time (sec)')
 plt.ylabel('Mach Number')
 
+
+print(f'Time1:{time1}')
+print(f'altitude : {height_in_meters}')
+print(f'mach number : {mach}')
+print(f'velocity : {velocity}')
 plt.tight_layout()
 plt.show()

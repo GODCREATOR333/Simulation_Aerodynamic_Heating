@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from colorama import Fore, Style
+from Trajectory1 import height_in_meters, mach, time1, time2, velocity
+
 
 print(Fore.RED + Style.BRIGHT +
       "Remember the maximum altitude for this simulation is 85000 meters to be accurate and within acceptable error.")
-alt = int(input("Enter altitude (meters):"))
+alt = height_in_meters[-1]
 
 
 class AtmosphericModel:
@@ -59,7 +61,9 @@ class AtmosphericModel:
             alt) for alt in self.altitudes]
         density_values = [self.density_at_altitude(
             alt) for alt in self.altitudes]
-        # speed_of_sound_values = [self.speed_of_sound(alt)for alt in self.altitudes]
+        speed_of_sound_values = [
+            self.speed_of_sound(alt)for alt in self.altitudes]  # this is require for plotting , since we are not plotting
+        # now it is greyed out
 
         # Create subplots
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 10))
@@ -137,8 +141,8 @@ class AtmosphericModel:
               den in altitude_density_points]))
 
         print("Altitude vs Speed of sound:")
-        print("\t".join([f"({alt}, {den})" for alt,
-              den in altitude_sound_speed_points]))
+        print("\t".join([f"({alt}, {sound_speed})" for alt,
+              sound_speed in altitude_sound_speed_points]))
 
         return altitude_temperature_points, altitude_pressure_points, altitude_density_points
 

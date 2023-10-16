@@ -13,6 +13,7 @@ class FlowParameters:
         self.M = 0.0289644  # kg/mol (dry air)
         self.g = 9.80665  # m/s^2
         self.gamma = 1.4
+        self.sound_speed_values = model.speed_of_sound
 
     def stag_temp_ratio(self, mach):
         if mach < 5:
@@ -66,14 +67,13 @@ stag_den_ratios = [flow_parameters.stag_den_ratio(
 free_stream_mach_values_cube = [flow_parameters.free_stream_mach_cube(
     stag_mach_value, mach_value) for stag_mach_value, mach_value in zip(stag_mach_ratios, mach_array)]
 
-
 # Get the lengths of the calculated arrays
 length_of_stag_temp_ratios = len(stag_temp_ratios)
 length_of_stag_press_ratios = len(stag_press_ratios)
 length_of_stag_vel_ratios = len(stag_vel_ratios)
 length_of_stag_mach_ratios = len(stag_mach_ratios)
 length_of_stag_den_ratios = len(stag_den_ratios)
-
+length_of_free_stream_mach_values_cube = len(free_stream_mach_values_cube)
 
 # Print the calculated parameters and their lengths
 print("Length of Stagnation Temperature Ratios:", length_of_stag_temp_ratios)
@@ -82,7 +82,7 @@ print("Length of Stagnation Velocity Ratios:", length_of_stag_vel_ratios)
 print("Length of Stagnation Mach Ratios:", length_of_stag_mach_ratios)
 print("Length of Stagnation Density Ratios:", length_of_stag_den_ratios)
 print("Length of free_stream_mach_values_cube:",
-      len(free_stream_mach_values_cube))
+      length_of_free_stream_mach_values_cube)
 
 print("Stagnation Temperature Ratios:", stag_temp_ratios)
 print("Stagnation Pressure Ratios:", stag_press_ratios)

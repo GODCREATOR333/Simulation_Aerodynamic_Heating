@@ -4,7 +4,6 @@ from std_atm_for_all import AtmosphericModel, alt
 model = AtmosphericModel(alt)
 altitudes = model.altitudes
 mach_array = mach  # Creates a array of mach_values from Trajectory path
-sound_speed_values = model.speed_of_sound
 
 
 class FlowParameters:
@@ -84,9 +83,9 @@ print("Length of Stagnation Density Ratios:", length_of_stag_den_ratios)
 print("Length of free_stream_mach_values_cube:",
       length_of_free_stream_mach_values_cube)
 
-print("Stagnation Temperature Ratios:", stag_temp_ratios)
-print("Stagnation Pressure Ratios:", stag_press_ratios)
-print("Stagnation Velocity Ratios:", stag_vel_ratios)
-print("Stagnation Mach Ratios:", stag_mach_ratios)
-print("Stagnation Density Ratios:", stag_den_ratios)
-print("free stream mach values cube:", free_stream_mach_values_cube)
+# print("Stagnation Temperature Ratios:", stag_temp_ratios)
+# print("Stagnation Pressure Ratios:", stag_press_ratios)
+# print("Stagnation Velocity Ratios:", stag_vel_ratios)
+# print("Stagnation Mach Ratios:", stag_mach_ratios)
+# print("Stagnation Density Ratios:", stag_den_ratios)
+# print("free stream mach values cube:", free_stream_mach_values_cube)

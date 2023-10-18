@@ -18,7 +18,7 @@ class FlowParameters:
         if mach < 5:
             return 1 + 0.5 * (self.gamma - 1) * mach ** 2
         else:
-            return (self.gamma + 1) * mach ** 2 / (2 * self.gamma * mach ** 2 - (self.gamma - 1))
+            return (self.gamma + 1) * (mach ** 2) / ((2 * self.gamma * (mach ** 2)) - (self.gamma - 1))
 
     def stag_press_ratio(self, mach):
         if mach < 5:
@@ -45,6 +45,9 @@ class FlowParameters:
     def free_stream_mach_cube(self, stag_mach_ratio, mach):
         return (stag_mach_ratio*mach) ** 3
 
+    def get_free_stream_mach_values(self, stag_mach_ratio, mach):
+        return (stag_mach_ratio*mach)
+
 
 # Create an instance of FlowParameters
 flow_parameters = FlowParameters()
@@ -64,6 +67,8 @@ stag_den_ratios = [flow_parameters.stag_den_ratio(
 
 # calculate the free stream parameters
 free_stream_mach_values_cube = [flow_parameters.free_stream_mach_cube(
+    stag_mach_value, mach_value) for stag_mach_value, mach_value in zip(stag_mach_ratios, mach_array)]
+free_stream_mach_values = [flow_parameters.free_stream_mach_cube(
     stag_mach_value, mach_value) for stag_mach_value, mach_value in zip(stag_mach_ratios, mach_array)]
 
 # Get the lengths of the calculated arrays

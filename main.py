@@ -1,9 +1,12 @@
 from Trajectory1 import height_in_meters, mach, time1, time2, velocity
 from std_atm_for_all import AtmosphericModel, alt
 from flow_parameters_calcs import FlowParameters, flow_parameters
-from flow_parameters_calcs import stag_den_ratios, stag_temp_ratios, stag_press_ratios, stag_mach_ratios, stag_vel_ratios, free_stream_mach_values_cube
+import matplotlib.pyplot as plt
+import numpy as np
+from flow_parameters_calcs import stag_den_ratios, stag_temp_ratios, stag_press_ratios, stag_mach_ratios, stag_vel_ratios, free_stream_mach_values_cube, free_stream_mach_values
 model = AtmosphericModel(alt)
 altitudes = model.altitudes
+gamma = 1.4
 
 
 class Step1:
@@ -43,15 +46,49 @@ class Step1:
         return speed_of_sound
 
 
+step1 = Step1()
+temp_values = step1.get_temp_values()
+pressure_values = step1.get_pressure_values()
+density_values = step1.get_density_values()
+speed_of_sound_values = step1.get_speed_of_sound_values()
+time_values = time1
+altitude_values = height_in_meters
+velocity_values = velocity
+mach_values = mach
+
+length_of_temp_values = len(temp_values)
+length_of_pressure_values = len(pressure_values)
+length_of_density_values = len(density_values)
+length_of_speed_of_sound_values = len(speed_of_sound_values)
+length_of_time_values = len(time_values)
+length_of_altitude_values = len(altitude_values)
+length_of_velocity_values = len(velocity_values)
+length_of_mach_values = len(mach_values)
+
+
+##### Step 1 ######
+
+print(f'length_of_temp_values: {length_of_temp_values}')
+print(f'length_of_pressure_values : {length_of_pressure_values}')
+print(f'length_of_density_values : {length_of_density_values}')
+print(f'length_of_speed_of_sound_value : {length_of_speed_of_sound_values}')
+print(f'length_of_time_values : {length_of_time_values}')
+print(f'length_of_altitude_values : {length_of_altitude_values}')
+print(f'length_of_velocity_values : {length_of_velocity_values}')
+print(f'length_of_mach_values : {length_of_mach_values}')
+
+
 class Step2:  # calculating the flow parameters for step 2
 
     @staticmethod
     def get_free_stream_temp_values():
         free_stream_temp_values = []
         for stag_temp_ratio, sound_speed_value in zip(stag_temp_ratios, speed_of_sound_values):
-            values = (stag_temp_ratio)*((sound_speed_value/49.02)**2)
-            values_in_celsius = (values-491.67)*5/9
-            free_stream_temp_values.append(values_in_celsius)
+            # convert speed of sound from m/sec to ft/sec
+            values = (stag_temp_ratio)*(((sound_speed_value/0.3048)/49.02)**2)
+            # convert the values from degree rankine to degree kelvin
+            values_in_kelvin = (values/1.8)
+            free_stream_temp_values.append(values_in_kelvin)
         return free_stream_temp_values
 
     @staticmethod
@@ -101,17 +138,6 @@ class Step2:  # calculating the flow parameters for step 2
         return free_stream_reynolds_number_values
 
 
-step1 = Step1()
-temp_values = step1.get_temp_values()
-pressure_values = step1.get_pressure_values()
-density_values = step1.get_density_values()
-speed_of_sound_values = step1.get_speed_of_sound_values()
-time_values = time1
-altitude_values = height_in_meters
-velocity_values = velocity
-mach_values = mach
-
-
 step2 = Step2()
 free_stream_temp_values = step2.get_free_stream_temp_values()
 free_stream_den_values = step2.get_free_stream_density_values()
@@ -122,14 +148,6 @@ free_stream_viscosity_values = step2.get_free_stream_coefficient_of_viscosity_va
 free_stream_reynolds_values = step2.get_free_stream_reynolds_number_values()
 
 
-length_of_temp_values = len(temp_values)
-length_of_pressure_values = len(pressure_values)
-length_of_density_values = len(density_values)
-length_of_speed_of_sound_values = len(speed_of_sound_values)
-length_of_time_values = len(time_values)
-length_of_altitude_values = len(altitude_values)
-length_of_velocity_values = len(velocity_values)
-length_of_mach_values = len(mach_values)
 length_of_free_stream_temp_values = len(free_stream_temp_values)
 length_of_free_stream_density_values = len(free_stream_den_values)
 length_of_free_stream_speed_of_sound_values = len(
@@ -139,14 +157,7 @@ length_of_free_stream_reynolds_values = len(free_stream_reynolds_values)
 length_of_free_stream_viscosity_values = len(free_stream_viscosity_values)
 
 
-print(f'length_of_temp_values: {length_of_temp_values}')
-print(f'length_of_pressure_values : {length_of_pressure_values}')
-print(f'length_of_density_values : {length_of_density_values}')
-print(f'length_of_speed_of_sound_value : {length_of_speed_of_sound_values}')
-print(f'length_of_time_values : {length_of_time_values}')
-print(f'length_of_altitude_values : {length_of_altitude_values}')
-print(f'length_of_velocity_values : {length_of_velocity_values}')
-print(f'length_of_mach_values : {length_of_mach_values}')
+##### Step 2 #####
 print(
     f'length_of_free_stream_temp_values : {length_of_free_stream_temp_values}')
 print(
@@ -161,12 +172,143 @@ print(
     f'length_of_free_stream_viscosity_values : {length_of_free_stream_viscosity_values}')
 
 
+class Step3:
+
+    @staticmethod
+    def get_stag_temp_value():
+        stag_temp_values = []
+        for stag_temp_ratio, free_temp_value, free_stream_mach_value in zip(stag_temp_ratios, free_stream_temp_values, free_stream_mach_values):
+            temp_value = (free_temp_value*(1+(gamma-1)/2)
+                          * free_stream_mach_value**2)
+            stag_temp_values.append(temp_value)
+        return stag_temp_values
+
+
+step3 = Step3()
+stag_temp_values = step3.get_stag_temp_value()
+
+length_of_stag_temp_values = len(stag_temp_values)
+
+
+##### Step 3 #####
+print(
+    f'length_of_stag_temp_values : {length_of_stag_temp_values}')
+
+
+class Step3_1():
+
+    @staticmethod
+    def get_infinitesimal_temp_values():
+        T_infinitesimal = []
+
+        for i in range(len(free_stream_temp_values)):
+
+            T_free_i = free_stream_temp_values[i]
+            T0_i = stag_temp_values[i]
+
+            intermediate_T = []  # store 100 values for this pair
+
+            for fraction in np.linspace(0, 1, num=100):
+
+                T = T_free_i + (T0_i - T_free_i)*fraction
+                intermediate_T.append(T)
+
+            # add this pair's 100 values to full list
+            T_infinitesimal.extend(intermediate_T)
+
+        return T_infinitesimal
+
+    # @staticmethod
+    # def get_variable_Cp_values(free_stream_temp_values, stag_temp_values):
+    #     T_values = np.arange(free_stream_temp_values, stag_temp_values + 1)
+    #     Cp_avg = (1 / (stag_temp_values - free_stream_temp_values)) * \
+    #         np.trapz(Cp(T_values), dx=1)
+    #     return Cp_avg
+    # # Calculate average Cp for each pair of T_inf and T0 values
+    # for T_inf, T0 in zip(free_stream_temp_values, stag_temp_values):
+    #     Cp_avg = get_variable_Cp_values(
+    #         free_stream_temp_values, stag_temp_values)
+    #     print(
+    #         f"For free stream temp values = {free_stream_temp_values} K and stag temp values = {stag_temp_ratios} K, Average Cp = {Cp_avg} kJ/kg-K")
+
+
+step3_1 = Step3_1()
+T_infinitesimal = step3_1.get_infinitesimal_temp_values()
+length_of_infinitesimal_temp_values = len(T_infinitesimal)
+print(
+    f"length of Infinitesimal Temperature values : { length_of_infinitesimal_temp_values}")
+
+
+class Step3_2:
+    def __init__(self):
+        self.coefficients = {
+            'A': 28.11,
+            'B': 0.1967,
+            'C': 0.4802,
+            'D': -0.1743,
+            'E': 0.02279,
+            'F': -1.447e-05,
+            'G': 2.947e-09
+        }
+
+    def calculate_avg_Cp_values(self):
+        T_infinitesimal = step3_1.get_infinitesimal_temp_values()
+        A = self.coefficients['A']
+        B = self.coefficients['B']
+        C = self.coefficients['C']
+        D = self.coefficients['D']
+        E = self.coefficients['E']
+        F = self.coefficients['F']
+        G = self.coefficients['G']
+
+        avg_Cp_values = []
+
+        # Function to calculate Cp(T) for air
+        def Cp_air(T):
+            return A + B * T + C * T**2 + D * T**3 + E * T**4 + F * T**5 + G * T**6
+
+        avg_Cp_values = [Cp_air(T) for T in T_infinitesimal]
+
+        return avg_Cp_values
+
+
+step3_2 = Step3_2()
+avg_Cp_values = step3_2.calculate_avg_Cp_values()
+
+length_of_Cp_values = len(avg_Cp_values)
+print(f'length of cp values : {length_of_Cp_values}')
+
+
+class Step3_3():
+
+    @staticmethod
+    def plotting_stagnation_temp_rise_for_variable_Cp():
+
+        plt.figure()
+        plt.plot(free_stream_velocity_values, stag_temp_values)
+        plt.xlabel('Free Stream Velocity (m/s)')
+        plt.ylabel('Stagnation Temperature (C)')
+        plt.title('Stagnation Temperature Rise vs Free Stream Velocity')
+        # plt.show()
+
+    plotting_stagnation_temp_rise_for_variable_Cp()
+
+
 # print(f'The time values are: {time_values}')
 # print(f'The altitude values are: {altitude_values}')
-# print(f'The mach values are: {mach_values}')
 # print(f'The velocity values are: {velocity_values}')
 # print(f'The temperature values are: {temp_values}')
 # print(f'The pressure values are: {pressure_values}')
 # print(f'The density values are: {density_values}')
 # print(f'The speed of sound values are: {speed_of_sound_values}')
 # print("Stagnation Pressure Ratios:", stag_press_ratios)
+# print(f'The mach values are: {mach_values}')
+
+# print(f'stag_temp_ratios : {stag_temp_ratios}')
+print(f'Free_stream_temp_values : {free_stream_temp_values}')
+print(f'stag_temp_values : {stag_temp_values}')
+print(f'Infinitesimal Temp values = {T_infinitesimal}')
+print(f"Average Cp values: {avg_Cp_values}")
+
+
+# print(f'Free_stream_velocity_values : {free_stream_velocity_values}')

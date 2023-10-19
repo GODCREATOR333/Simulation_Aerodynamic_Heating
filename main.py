@@ -251,7 +251,7 @@ class Step3_2:
             'G': 2.947e-09
         }
 
-    def get_infinitesimal_Cp_values(self):
+    def calculate_avg_Cp_values(self):
         T_infinitesimal = step3_1.get_infinitesimal_temp_values()
         A = self.coefficients['A']
         B = self.coefficients['B']
@@ -261,107 +261,38 @@ class Step3_2:
         F = self.coefficients['F']
         G = self.coefficients['G']
 
-        infinitesimal_Cp_values = []
+        avg_Cp_values = []
 
         # Function to calculate Cp(T) for air
-        def Cp_air(T_infinitesimal):
-            return A + B * T_infinitesimal + C * T_infinitesimal**2 + D * T_infinitesimal**3 + E * T_infinitesimal**4 + F * T_infinitesimal**5 + G * T_infinitesimal**6
+        def Cp_air(T):
+            return A + B * T + C * T**2 + D * T**3 + E * T**4 + F * T**5 + G * T**6
 
-        infinitesimal_Cp_values = [Cp_air(T) for T in T_infinitesimal]
+        avg_Cp_values = [Cp_air(T) for T in T_infinitesimal]
 
-        return infinitesimal_Cp_values
+        return avg_Cp_values
 
 
 step3_2 = Step3_2()
-infinitesimal_Cp_values = step3_2.get_infinitesimal_Cp_values()
+avg_Cp_values = step3_2.calculate_avg_Cp_values()
 
-length_of_infinitesimal_Cp_values = len(infinitesimal_Cp_values)
-print(
-    f'length of infinitesimal cp values : {length_of_infinitesimal_Cp_values}')
-
-
-class Step3_3:
-    def get_Cp_values(self, infinitesimal_Cp_values, T_infinitesimal, stag_temp_values, free_stream_temp_values):
-        # T_infinitesimal = step3_1.get_infinitesimal_temp_values()  # Correct the method call
-        # slices = []
-        # slice_size = 100
-
-        # for i in range(0, len(T_infinitesimal), slice_size):
-        #     slice = T_infinitesimal[i:i + slice_size]
-        #     slices.append(slice)
-
-        # for i in range(5):
-        #     slice = slices[i]
-        #     first_element = slice[0]
-        #     last_element = slice[-1]
-        #     print(
-        #         f"Slice {i + 1}: First Element = {first_element}, Last Element = {last_element}")
-
-        Cp_values = []
-
-        for i in range(0, len(T_infinitesimal), 100):
-            T_inf_subset = T_infinitesimal[i:i+100]
-            C_p_subset = infinitesimal_Cp_values[i:i+100]
-
-            # Calculate the average C_p for this pair
-            T0_i = stag_temp_values[i // 100]  # Index conversion
-            T_free_i = free_stream_temp_values[i // 100]  # Index conversion
-            integral = 0
-
-            for T, Cp in zip(T_inf_subset, C_p_subset):
-                integral += Cp
-
-            Cp_avg = integral / len(C_p_subset)
-            Cp_values.append(Cp_avg)
-        return Cp_values
+length_of_Cp_values = len(avg_Cp_values)
+print(f'length of cp values : {length_of_Cp_values}')
 
 
-step3_3 = Step3_3()  # Create an instance of the Step3_3 class
-Cp_values = step3_3.get_Cp_values(
-    infinitesimal_Cp_values, T_infinitesimal, stag_temp_values, free_stream_temp_values)
+class Step3_3():
 
-length_of_cp_values = len(Cp_values)
-
-print(f'Length of Cp values: {length_of_cp_values}')
-print(f'Cp values: {Cp_values}')
-
-
-class Step3_4:
-    def get_stag_temp_rise_from_Cp(self, free_stream_velocity_values, Cp_values):
-        stag_temp_rise_from_Cp = []
-
-        for velocity, average_cp in zip(free_stream_velocity_values, Cp_values):
-            delta_t0 = (velocity ** 2) / (2 * average_cp)
-            stag_temp_rise_from_Cp.append(delta_t0)
-
-        return stag_temp_rise_from_Cp
-
-
-step3_4 = Step3_4()
-stag_temp_rise_from_Cp = step3_4.get_stag_temp_rise_from_Cp(
-    free_stream_velocity_values, Cp_values)
-length_of_stag_temp_rise_from_Cp = len(stag_temp_rise_from_Cp)
-print(
-    f'length of the stagnation temperature rise values = {length_of_stag_temp_rise_from_Cp}')
-
-
-class Step3_5():
     @staticmethod
-    def plot_stag_temp_rise_vs_velocity(stag_temp_rise_from_cp, free_stream_velocity_values):
-        plt.figure(figsize=(8, 6))
-        plt.plot(free_stream_velocity_values,
-                 stag_temp_rise_from_cp, marker='o', linestyle='-')
+    def plotting_stagnation_temp_rise_for_variable_Cp():
+
+        plt.figure()
+        plt.plot(free_stream_velocity_values, stag_temp_values)
         plt.xlabel('Free Stream Velocity (m/s)')
-        plt.ylabel('Stagnation Temperature Rise (C)')
+        plt.ylabel('Stagnation Temperature (C)')
         plt.title('Stagnation Temperature Rise vs Free Stream Velocity')
-        plt.grid(True)
-        plt.show()
         # plt.show()
 
+    plotting_stagnation_temp_rise_for_variable_Cp()
 
-step3_5 = Step3_5()
-step3_5.plot_stag_temp_rise_vs_velocity(
-    stag_temp_rise_from_Cp, free_stream_velocity_values)
 
 # print(f'The time values are: {time_values}')
 # print(f'The altitude values are: {altitude_values}')
@@ -376,8 +307,8 @@ step3_5.plot_stag_temp_rise_vs_velocity(
 # print(f'stag_temp_ratios : {stag_temp_ratios}')
 print(f'Free_stream_temp_values : {free_stream_temp_values}')
 print(f'stag_temp_values : {stag_temp_values}')
-# print(f'Infinitesimal Temp values = {T_infinitesimal}')
-# print(f"Average Cp values: {infinitesimal_Cp_values}")
+print(f'Infinitesimal Temp values = {T_infinitesimal}')
+print(f"Average Cp values: {avg_Cp_values}")
 
-print(f'Stagnation Temperature Rises: {stag_temp_rise_from_Cp}')
-print(f'Free_stream_velocity_values : {free_stream_velocity_values}')
+
+# print(f'Free_stream_velocity_values : {free_stream_velocity_values}')

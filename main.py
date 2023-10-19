@@ -175,7 +175,7 @@ print(
 class Step3:
 
     @staticmethod
-    def get_stag_temp_value():
+    def get_stag_temp_value_1():
         stag_temp_values = []
         for stag_temp_ratio, free_temp_value, free_stream_mach_value in zip(stag_temp_ratios, free_stream_temp_values, free_stream_mach_values):
             temp_value = (free_temp_value*(1+(gamma-1)/2)
@@ -183,9 +183,17 @@ class Step3:
             stag_temp_values.append(temp_value)
         return stag_temp_values
 
+    @staticmethod
+    def get_stag_temp_value_2():
+        stag_temp_values = []
+        for stag_temp_ratio, free_temp_value, free_stream_mach_value in zip(stag_temp_ratios, free_stream_temp_values, free_stream_mach_values):
+            temp_value = (free_temp_value/stag_temp_ratio)
+            stag_temp_values.append(temp_value)
+        return stag_temp_values
+
 
 step3 = Step3()
-stag_temp_values = step3.get_stag_temp_value()
+stag_temp_values = step3.get_stag_temp_value_2()
 
 length_of_stag_temp_values = len(stag_temp_values)
 
@@ -304,9 +312,9 @@ class Step3_3():
 # print("Stagnation Pressure Ratios:", stag_press_ratios)
 # print(f'The mach values are: {mach_values}')
 
-# print(f'stag_temp_ratios : {stag_temp_ratios}')
-# print(f'Free_stream_temp_values : {free_stream_temp_values}')
-# print(f'stag_temp_values : {stag_temp_values}')
+print(f'stag_temp_ratios : {stag_temp_ratios}')
+print(f'Free_stream_temp_values : {free_stream_temp_values}')
+print(f'stag_temp_values : {stag_temp_values}')
 # print(f'Infinitesimal Temp values = {T_infinitesimal}')
 # print(f"Average Cp values: {avg_Cp_values}")
 

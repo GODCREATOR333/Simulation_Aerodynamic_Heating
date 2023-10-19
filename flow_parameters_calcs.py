@@ -1,9 +1,9 @@
-from main import mach_values_ms
-from Trajectory1 import velocity_values
+from Trajectory1 import mach_values_ms
 import numpy as np
 from std_atm_for_all import AtmosphericModel, alt
 model = AtmosphericModel(alt)
 altitudes = model.altitudes
+mach_array = mach_values_ms
 
 
 class FlowParameters:

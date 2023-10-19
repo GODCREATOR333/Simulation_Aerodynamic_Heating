@@ -48,7 +48,7 @@ def get_height_in_meters():
 data_of_height_in_meters = get_height_in_meters()
 height_in_meters = data_of_height_in_meters
 
-print(f'height in meter values = {height_in_meters}')
+# print(f'height in meter values = {height_in_meters}')
 
 height_in_meters_final_data = [133.18352059925493, 156.02259176030554, 311.5543071161117, 430.4681647940105,
                                489.9250936329685, 549.3820224719179, 727.7528089887746, 787.2097378277241, 965.5805243445722, 1084.494382022471, 1381.7790262172352, 1500.6928838951426, 1797.9775280898982, 1857.434456928839, 1976.348314606746, 2333.0898876404513, 2511.4606741573084, 2808.745318352064, 3165.486891385777, 3403.3146067415746, 3819.5131086142333, 4473.539325842702, 4949.194756554315, 5187.022471910121, 5722.134831460683, 5959.962546816489, 6613.98876404495, 6970.7303370786585, 7624.756554307124, 8040.955056179778, 8635.524344569292,
@@ -125,19 +125,20 @@ def get_vel_values():
 # Calculate velocity values
 velocity_values = get_vel_values()
 length_of_velocity_values = len(velocity_values)
-print(f'length of velocity values : {length_of_velocity_values}')
+print(f'length of velocity values (m/s) : {length_of_velocity_values}')
 
 
-length_time_for_altitude = len(time1)
-length_mach = len(mach_ft)
+length_time_in_trajectory = len(time1)
+length_mach_ft = len(mach_ft)
+length_mach_values_ms = len(mach_values_ms)
 length_height_in_meters = len(height_in_meters)
 
 
 ############################################################################################################
 ############################################################################################################
-print(f'length of time for altitude = {length_time_for_altitude}')
-print(f'length of mach = {length_mach}')
-print(f'length of height = {length_height_in_meters}')
+print(f'length of time in trajectory (sec) = {length_time_in_trajectory}')
+print(f'length of mach (for m/s) = {length_mach_values_ms}')
+print(f'length of altitude values  (m) = {length_height_in_meters}')
 
 
 # interpolate the data to remove variance/noise and make it more accurate
@@ -184,5 +185,5 @@ plt.tight_layout()
 # print(f'altitude : {height_in_meters}')
 # print(f'mach number : {mach}')
 # print(f'velocity : {velocity}')
-print(f'velocity values : {velocity_values}')
+# print(f'velocity values : {velocity_values}')
 # plt.show()

@@ -1,4 +1,4 @@
-from Trajectory1 import height_in_meters,  time1, velocity_values
+from Trajectory1 import height_in_meters,  time1, velocity_values, mach_values_ms
 from std_atm_for_all import AtmosphericModel, alt
 from flow_parameters_calcs import FlowParameters, flow_parameters
 import matplotlib.pyplot as plt
@@ -51,10 +51,10 @@ temp_values = step1.get_temp_values()
 pressure_values = step1.get_pressure_values()
 density_values = step1.get_density_values()
 speed_of_sound_values = step1.get_speed_of_sound_values()
-mach_values_ms = step1.get_mach_values()
 time_values = time1
 altitude_values = height_in_meters
 velocity_values = velocity_values
+mach_values = mach_values_ms
 
 length_of_temp_values = len(temp_values)
 length_of_pressure_values = len(pressure_values)
@@ -305,10 +305,10 @@ class Step3_3():
 # print(f'The mach values are: {mach_values}')
 
 # print(f'stag_temp_ratios : {stag_temp_ratios}')
-print(f'Free_stream_temp_values : {free_stream_temp_values}')
-print(f'stag_temp_values : {stag_temp_values}')
-print(f'Infinitesimal Temp values = {T_infinitesimal}')
-print(f"Average Cp values: {avg_Cp_values}")
+# print(f'Free_stream_temp_values : {free_stream_temp_values}')
+# print(f'stag_temp_values : {stag_temp_values}')
+# print(f'Infinitesimal Temp values = {T_infinitesimal}')
+# print(f"Average Cp values: {avg_Cp_values}")
 
 
 # print(f'Free_stream_velocity_values : {free_stream_velocity_values}')

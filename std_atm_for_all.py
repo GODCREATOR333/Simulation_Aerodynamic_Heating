@@ -1,13 +1,14 @@
+import scipy.interpolate as interp
+from scipy.signal import savgol_filter
 import matplotlib.pyplot as plt
 import numpy as np
 from colorama import Fore, Style
-from Trajectory1 import height_in_meters, mach, time1, time2, velocity
+from Trajectory1 import height_in_meters, velocity_values, time1, time2
 
+alt = height_in_meters
 
 print(Fore.RED + Style.BRIGHT +
       "Remember the maximum altitude for this simulation is 85000 meters to be accurate and within acceptable error.")
-
-alt = height_in_meters
 
 
 class AtmosphericModel:
@@ -55,6 +56,15 @@ class AtmosphericModel:
         speed_of_sound = 19.935296 * (t ** 0.5)
         return speed_of_sound
 
+    def calc_mach_values(self, alt):
+
+        speed_of_sound_values = [self.speed_of_sound(h) for h in alt]
+        mach_values = []
+        for vel, sound_speed in zip(velocity_values, speed_of_sound_values):
+            mach = vel / sound_speed
+            mach_values.append(mach)
+        return mach_values
+
     def std_international(self):
         temperature_values = [self.temperature_at_altitude(
             alt) for alt in self.altitudes]
@@ -65,6 +75,7 @@ class AtmosphericModel:
         speed_of_sound_values = [
             self.speed_of_sound(alt)for alt in self.altitudes]  # this is require for plotting , since we are not plotting
         # now it is greyed out
+        mach_values = self.calc_mach_values(self.altitudes)
 
         # Create subplots
         fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(10, 10))
@@ -88,7 +99,7 @@ class AtmosphericModel:
         plt.tight_layout()
         #########################################
         #########################################
-        # plt.show()
+        plt.show()
 
     def plot_points(self):
         # Generate coordinate points for temperature, pressure, and density
@@ -101,6 +112,7 @@ class AtmosphericModel:
             alt) for alt in altitude_points]
         speed_of_sound_points = [self.speed_of_sound(
             alt)for alt in altitude_points]
+        mach_points = self.calc_mach_values(altitude_points)
 
         # Prepare coordinate points for the three plots
         altitude_temperature_points = list(
@@ -109,6 +121,8 @@ class AtmosphericModel:
         altitude_density_points = list(zip(altitude_points, density_points))
         altitude_sound_speed_points = list(
             zip(altitude_points, speed_of_sound_points))
+        altitude_mach_points = list(
+            zip(altitude_points, mach_points))
 
         #################################################################################################
         #################################################################################################
@@ -125,10 +139,10 @@ class AtmosphericModel:
         # for alt, den in zip(altitude_points, density_points):
         #     print(f"Altitude: {alt} m, Density: {den} kg/m^3")
 
-        # print("Altitude vs Speed of Sound:")
-        # for alt, sound_speed in zip(altitude_points, speed_of_sound_points):
-        #     print(
-        #         f"Altitude: {alt} m, Speed of sound: {sound_speed} m/sec")
+        print("Altitude vs Speed of Sound:")
+        for alt, sound_speed in zip(altitude_points, speed_of_sound_points):
+            print(
+                f"Altitude: {alt} m, Speed of sound: {sound_speed} m/sec")
 
         #####################################################################################################
         #####################################################################################################
@@ -149,13 +163,37 @@ class AtmosphericModel:
         # print("\t".join([f"({alt}, {sound_speed})" for alt,
         #       sound_speed in altitude_sound_speed_points]))
 
-        # return altitude_temperature_points, altitude_pressure_points, altitude_density_points
+        print("Velocity vs Mach:")
+        for vel, mach in zip(velocity_values, mach_points):
+            print(f"Velocity: {vel}, Mach: {mach}")
+
+        return altitude_temperature_points, altitude_pressure_points, altitude_density_points, mach_points
 
 
 # Create an instance of the AtmosphericModel class
 atmosphere = AtmosphericModel(alt)
-
 # Call std_international to perform calculations and plotting
 atmosphere.std_international()
 
 atmosphere.plot_points()
+
+mach = atmosphere.calc_mach_values(alt)
+print(f'length of mach : {len(mach)}')
+# print(f'mach-values = == {mach}')
+
+
+# Time vs Altitude
+plt.subplot(2, 2, 1)
+plt.plot(time1, height_in_meters)
+plt.title('Time vs Altitude')
+plt.xlabel('Time (sec)')
+plt.ylabel('Altitude (m)')
+
+# Time vs Mach Number
+plt.subplot(2, 2, 2)
+plt.plot(time1, mach)
+plt.title('Time vs Mach Number')
+plt.xlabel('Time (sec)')
+plt.ylabel('Mach Number')
+plt.tight_layout()
+plt.show()

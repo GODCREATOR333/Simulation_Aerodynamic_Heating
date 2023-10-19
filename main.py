@@ -1,4 +1,4 @@
-from Trajectory1 import height_in_meters, mach, time1, time2, velocity
+from Trajectory1 import height_in_meters,  time1, velocity_values
 from std_atm_for_all import AtmosphericModel, alt
 from flow_parameters_calcs import FlowParameters, flow_parameters
 import matplotlib.pyplot as plt
@@ -9,7 +9,7 @@ altitudes = model.altitudes
 gamma = 1.4
 
 
-class Step1:
+class Step1():
     # Get temp values for all altitude points
     @staticmethod
     def get_temp_values():
@@ -51,10 +51,10 @@ temp_values = step1.get_temp_values()
 pressure_values = step1.get_pressure_values()
 density_values = step1.get_density_values()
 speed_of_sound_values = step1.get_speed_of_sound_values()
+mach_values_ms = step1.get_mach_values()
 time_values = time1
 altitude_values = height_in_meters
-velocity_values = velocity
-mach_values = mach
+velocity_values = velocity_values
 
 length_of_temp_values = len(temp_values)
 length_of_pressure_values = len(pressure_values)
@@ -63,7 +63,7 @@ length_of_speed_of_sound_values = len(speed_of_sound_values)
 length_of_time_values = len(time_values)
 length_of_altitude_values = len(altitude_values)
 length_of_velocity_values = len(velocity_values)
-length_of_mach_values = len(mach_values)
+length_of_mach_values = len(mach_values_ms)
 
 
 ##### Step 1 ######
@@ -78,7 +78,7 @@ print(f'length_of_velocity_values : {length_of_velocity_values}')
 print(f'length_of_mach_values : {length_of_mach_values}')
 
 
-class Step2:  # calculating the flow parameters for step 2
+class Step2():  # calculating the flow parameters for step 2
 
     @staticmethod
     def get_free_stream_temp_values():
@@ -110,9 +110,9 @@ class Step2:  # calculating the flow parameters for step 2
         return free_stream_speed_of_sound_values_cube
 
     @staticmethod
-    def get_free_stream_velocity_values(mach_values):
+    def get_free_stream_velocity_values(mach_values_ms):
         free_stream_velocity_values = []
-        for stag_velocity_ratio, speed_of_sound_value, mach in zip(stag_vel_ratios, speed_of_sound_values, mach_values):
+        for stag_velocity_ratio, speed_of_sound_value, mach in zip(stag_vel_ratios, speed_of_sound_values, mach_values_ms):
             free_velocity_values = (
                 stag_velocity_ratio*mach*speed_of_sound_value)
             free_stream_velocity_values.append(free_velocity_values)
@@ -143,7 +143,7 @@ free_stream_temp_values = step2.get_free_stream_temp_values()
 free_stream_den_values = step2.get_free_stream_density_values()
 free_stream_spees_of_sound_values = step2.get_free_stream_speed_of_sound_values_cube()
 free_stream_velocity_values = step2.get_free_stream_velocity_values(
-    mach_values)
+    mach_values_ms)
 free_stream_viscosity_values = step2.get_free_stream_coefficient_of_viscosity_values()
 free_stream_reynolds_values = step2.get_free_stream_reynolds_number_values()
 
@@ -276,7 +276,7 @@ step3_2 = Step3_2()
 avg_Cp_values = step3_2.calculate_avg_Cp_values()
 
 length_of_Cp_values = len(avg_Cp_values)
-print(f'length of cp values : {length_of_Cp_values}')
+print(f'length of infinitesimal cp values : {length_of_Cp_values}')
 
 
 class Step3_3():

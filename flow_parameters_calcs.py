@@ -15,7 +15,7 @@ class FlowParameters:
         self.sound_speed_values = model.speed_of_sound
 
     def stag_temp_ratio(self, mach):
-        if mach < 1:
+        if mach < 85:
             return 1 + 0.5 * (self.gamma - 1) * mach ** 2
         else:
             return (self.gamma + 1) * (mach ** 2) / ((2 * self.gamma * (mach ** 2)) - (self.gamma - 1))
@@ -88,7 +88,7 @@ print("Length of Stagnation Density Ratios:", length_of_stag_den_ratios)
 print("Length of free_stream_mach_values_cube:",
       length_of_free_stream_mach_values_cube)
 
-# print("Stagnation Temperature Ratios:", stag_temp_ratios)
+print("Stagnation Temperature Ratios:", stag_temp_ratios)
 # print("Stagnation Pressure Ratios:", stag_press_ratios)
 # print("Stagnation Velocity Ratios:", stag_vel_ratios)
 # print("Stagnation Mach Ratios:", stag_mach_ratios)

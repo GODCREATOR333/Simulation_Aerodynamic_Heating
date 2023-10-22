@@ -1,3 +1,4 @@
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 from colorama import Fore, Style
@@ -51,7 +52,7 @@ class AtmosphericModel:
 
     def speed_of_sound(self, alt):
         t = self.temperature_at_altitude(alt)
-        speed_of_sound = 19.935296 * (t ** 0.5)
+        speed_of_sound = 20.047 * math.sqrt(t)
         return speed_of_sound
 
     def std_international(self):

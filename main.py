@@ -202,7 +202,7 @@ class Step3:
         return stag_temp_values
 
     @staticmethod
-    def get_stag_temp_rise():
+    def get_stag_temp_rise_1():
         stag_temp_rise = []
         for free_temp_value, stag_temp_value in zip(free_stream_temp_values, stag_temp_values):
             temp_rise = stag_temp_value-free_temp_value
@@ -212,7 +212,7 @@ class Step3:
 
 step3 = Step3()
 stag_temp_values = step3.get_stag_temp_value_3()
-stag_temp_rise = step3.get_stag_temp_rise()
+stag_temp_rise = step3.get_stag_temp_rise_1()
 length_of_stag_temp_values = len(stag_temp_values)
 ##### Step 3 #####
 print(
@@ -348,9 +348,9 @@ class Step3_4:
     def get_stag_temp_rise_from_Cp(self, free_stream_velocity_values, Cp_values):
         stagnation_temperature_rises = []
 
-        for velocity, average_cp in zip(free_stream_velocity_values, Cp_values):
-            delta_t0 = (velocity ** 2) / (2 * average_cp)
-            stagnation_temperature_rises.append(delta_t0)
+        for velocity, final_cp in zip(free_stream_velocity_values, Cp_values):
+            delta_t0oo = 0.5 * ((velocity ** 2) / (4.186*9.81*final_cp))
+            stagnation_temperature_rises.append(delta_t0oo)
 
         return stagnation_temperature_rises
 

@@ -15,8 +15,8 @@ class FlowParameters:
         self.sound_speed_values = model.speed_of_sound
 
     def stag_temp_ratio(self, mach):
-        if mach < 85:
-            return 1 + 0.5 * (self.gamma - 1) * mach ** 2
+        if mach < 5:
+            return (1 + 0.5 * (self.gamma - 1) * mach ** 2)**-1
         else:
             return (self.gamma + 1) * (mach ** 2) / ((2 * self.gamma * (mach ** 2)) - (self.gamma - 1))
 

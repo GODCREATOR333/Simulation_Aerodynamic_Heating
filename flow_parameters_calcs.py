@@ -18,7 +18,7 @@ class FlowParameters:
         if mach < 5:
             return (1 + 0.5 * (self.gamma - 1) * mach ** 2)**-1
         else:
-            return (self.gamma + 1) * (mach ** 2) / ((2 * self.gamma * (mach ** 2)) - (self.gamma - 1))
+            return 1/(1 + self.gamma*mach**2/2)
 
     def stag_press_ratio(self, mach):
         if mach < 5:
@@ -88,7 +88,7 @@ print("Length of Stagnation Density Ratios:", length_of_stag_den_ratios)
 print("Length of free_stream_mach_values_cube:",
       length_of_free_stream_mach_values_cube)
 
-print("Stagnation Temperature Ratios:", stag_temp_ratios)
+# print("Stagnation Temperature Ratios:", stag_temp_ratios)
 # print("Stagnation Pressure Ratios:", stag_press_ratios)
 # print("Stagnation Velocity Ratios:", stag_vel_ratios)
 # print("Stagnation Mach Ratios:", stag_mach_ratios)

@@ -181,9 +181,7 @@ plt.ylabel('Mach Number')
 plt.tight_layout()
 ###################################################################################################
 ###################################################################################################
-# print(f'Time1:{time1}')
-# print(f'altitude : {height_in_meters}')
-# print(f'mach number : {mach}')
-# print(f'velocity : {velocity}')
-# print(f'velocity values : {velocity_values}')
-# plt.show()
+print(f'Time1:{time1}')
+print(f'altitude : {height_in_meters}')
+print(f'velocity values : {velocity_values}')
+plt.show()

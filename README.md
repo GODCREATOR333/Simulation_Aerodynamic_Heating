@@ -1,9 +1,5 @@
 # Simulation of Aerodynamic Heating for MIRV Trajectory Analysis
 
-## Defence Research and Development Organisation (DRDO-DRDL), Hyderabad
-**Project Intern | Sept 2023 - Oct 2023**  
-**Under the guidance of Shaik Ismail, Scientist ‘F’, DRDO-DRDL**
-
 ## 🚀 Project Overview
 This project focuses on analyzing aerodynamic heating challenges encountered by **Multiple Independently Targetable Reentry Vehicles (MIRVs)** during atmospheric reentry. Using **Python, NumPy, SciPy, and PyROOT (CERN’s Python interface for ROOT)**, I developed optimized computational models to enhance trajectory calculations and heat transfer assessments.
 
@@ -52,11 +48,6 @@ This project focuses on analyzing aerodynamic heating challenges encountered by 
 🔹 Extend analysis to include **radiative heat transfer effects** at hypersonic speeds.  
 🔹 Implement **parallel computing** with ROOT’s RDataFrame for enhanced performance.  
 🔹 Develop **3D visualization tools** for better interpretation of reentry heat maps.  
-
----
-
-## 🏆 Acknowledgments
-I extend my sincere gratitude to **Shaik Ismail, Scientist ‘F’, DRDO-DRDL**, for his invaluable mentorship and guidance throughout this project. This research has provided a deep understanding of **hypersonic aerodynamics and computational methods in aerospace engineering**.
 
 ---
 

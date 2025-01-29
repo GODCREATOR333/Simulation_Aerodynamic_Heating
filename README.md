@@ -4,13 +4,6 @@
 **Project Intern | Sept 2023 - Oct 2023**  
 **Under the guidance of Shaik Ismail, Scientist ‘F’, DRDO-DRDL**
 
----
-
-## 🔗 GitHub Repository
-[Simulation_Aerodynamic_Heating](https://github.com/GODCREATOR333/Simulation_Aerodynamic_Heating)
-
----
-
 ## 🚀 Project Overview
 This project focuses on analyzing aerodynamic heating challenges encountered by **Multiple Independently Targetable Reentry Vehicles (MIRVs)** during atmospheric reentry. Using **Python, NumPy, SciPy, and PyROOT (CERN’s Python interface for ROOT)**, I developed optimized computational models to enhance trajectory calculations and heat transfer assessments.
 

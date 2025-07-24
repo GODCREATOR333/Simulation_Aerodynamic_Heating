@@ -44,10 +44,10 @@ This project focuses on analyzing aerodynamic heating challenges encountered by 
 
 ## 📊 Simulation Results
 
-### **Figure 1: Vibration Compensation Response**
+### **Figure 1: ISA upto 30,000 meters**
 <img src="https://github.com/user-attachments/assets/5de6aa73-5d24-48db-9f4f-cd76a13fc83b" width="600"/>
 
-### **Figure 2: PID vs LQR vs MPC Comparison**
+### **Figure 2: Pressure, Density, Temperture upto 30,000 meters**
 <img src="https://github.com/user-attachments/assets/aa02feef-3916-4e99-bdf7-3365abec5435" width="600"/>
 
 ### **Figure 3: ISA Model Output**

@@ -42,7 +42,24 @@ This project focuses on analyzing aerodynamic heating challenges encountered by 
 ✅ **PyROOT integration** enabled faster processing of large-scale aerodynamic datasets, improving analysis precision.  
 ✅ The approach provides a **robust framework for future trajectory simulations and hypersonic vehicle design studies**.  
 
----
+## 📊 Simulation Results
+
+### **Figure 1: Vibration Compensation Response**
+<img src="https://github.com/user-attachments/assets/5de6aa73-5d24-48db-9f4f-cd76a13fc83b" width="600"/>
+
+### **Figure 2: PID vs LQR vs MPC Comparison**
+<img src="https://github.com/user-attachments/assets/aa02feef-3916-4e99-bdf7-3365abec5435" width="600"/>
+
+### **Figure 3: ISA Model Output**
+<img src="https://github.com/user-attachments/assets/5f6ce088-3369-43d6-818f-1c7b2177a8f2" width="600"/>
+
+### **Figure 4: Isentropic Flow Parameters**
+<img src="https://github.com/user-attachments/assets/eef85ebe-5cce-405a-8106-c8d0ffccbdf9" width="600"/>
+
+### **Figure 5: Pressure-Altitude Curve**
+<img src="https://github.com/user-attachments/assets/9430f957-8a35-4467-ac2f-0713ec2d5dee" width="600"/>
+
+
 
 ## 🔥 Future Work
 🔹 Extend analysis to include **radiative heat transfer effects** at hypersonic speeds.  

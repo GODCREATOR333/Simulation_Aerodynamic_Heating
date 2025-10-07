@@ -56,9 +56,6 @@ This project focuses on analyzing aerodynamic heating challenges encountered by 
 ### **Figure 4: Isentropic Flow Parameters**
 <img src="https://github.com/user-attachments/assets/eef85ebe-5cce-405a-8106-c8d0ffccbdf9" width="600"/>
 
-### **Figure 5: Pressure-Altitude Curve**
-<img src="https://github.com/user-attachments/assets/9430f957-8a35-4467-ac2f-0713ec2d5dee" width="600"/>
-
 
 
 ## 🔥 Future Work
@@ -67,5 +64,6 @@ This project focuses on analyzing aerodynamic heating challenges encountered by 
 🔹 Develop **3D visualization tools** for better interpretation of reentry heat maps.  
 
 ---
+
 
 
